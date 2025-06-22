@@ -1,13 +1,24 @@
-from aiogram import Bot, Dispatcher, types
+import asyncio
+from aiogram import Bot, Dispatcher
 from aiogram.enums import ParseMode
 from aiogram.client.default import DefaultBotProperties
 from aiogram.fsm.storage.memory import MemoryStorage
 
-TOKEN = "7824519668:AAHb4wzZ58mslG8bSMgtW3GdhEkZR01ef94"  # вставь свой токен сюда
+from handlers import router
 
-bot = Bot(token=TOKEN, default=DefaultBotProperties(parse_mode=ParseMode.HTML))
-dp = Dispatcher(storage=MemoryStorage())
+TOKEN = "7824519668:AAHb4wzZ58mslG8bSMgtW3GdhEkZR01ef94"
 
-@dp.message()
-async def handle_message(message: types.Message):
-    await message.answer("Привет! Я работаю через Webhook 😎")
+async def main():
+    bot = Bot(
+        token=TOKEN,
+        default=DefaultBotProperties(parse_mode=ParseMode.HTML)
+    )
+
+    dp = Dispatcher(storage=MemoryStorage())
+    dp.include_router(router)
+
+    print("🚀 Бот запущен")
+    await dp.start_polling(bot)
+
+if __name__ == "__main__":
+    asyncio.run(main())
