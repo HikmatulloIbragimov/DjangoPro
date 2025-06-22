@@ -1,13 +1,13 @@
 import asyncio
+import os
 from aiohttp import web
-from aiogram import Bot, Dispatcher
+from aiogram import Bot, Dispatcher, Router
 from aiogram.enums import ParseMode
 from aiogram.client.default import DefaultBotProperties
-from aiogram.fsm.storage.memory import MemoryStorage
-from aiogram import Router
 from aiogram.types import Message
+from aiogram.fsm.storage.memory import MemoryStorage
 
-TOKEN = "7824519668:AAHb4wzZ58mslG8bSMgtW3GdhEkZR01ef94"
+TOKEN = os.getenv("7824519668:AAHb4wzZ58mslG8bSMgtW3GdhEkZR01ef94")  # Используем переменную окружения
 
 router = Router()
 
@@ -15,25 +15,28 @@ router = Router()
 async def echo(message: Message):
     await message.answer("✅ Render работает!")
 
-async def main():
+async def start_bot():
     bot = Bot(token=TOKEN, default=DefaultBotProperties(parse_mode=ParseMode.HTML))
     dp = Dispatcher(storage=MemoryStorage())
     dp.include_router(router)
+    await dp.start_polling(bot)
 
-    # Параллельный aiohttp-сервер
-    async def handle(request):
+async def start_web():
+    async def handler(request):
         return web.Response(text="✅ I'm alive")
 
     app = web.Application()
-    app.router.add_get("/", handle)
-
+    app.router.add_get("/", handler)
     runner = web.AppRunner(app)
     await runner.setup()
-    site = web.TCPSite(runner, port=3000)
+
+    # ВАЖНО: использовать порт из окружения
+    port = int(os.environ.get("PORT", 8080))
+    site = web.TCPSite(runner, port=port)
     await site.start()
 
-    print("🚀 Бот и HTTP-сервер запущены")
-    await dp.start_polling(bot)
+async def main():
+    await asyncio.gather(start_bot(), start_web())
 
 if __name__ == "__main__":
     asyncio.run(main())
