@@ -107,13 +107,17 @@ service_emojis = {
 }
 
 # Изображения
-IMAGE_PATHS = {
-    name: str(BASE_IMAGE_PATH / f"{index+1}_photo.jpg")
-    for index, row in enumerate(SERVICE_BUTTONS[:8])
-    for name in row
-}
-IMAGE_PATHS["🛍 Yandex Market"] = str(BASE_IMAGE_PATH / "yandex_market.jpg")
+IMAGE_PATHS = {}
 
+photo_index = 1
+
+for row in SERVICE_BUTTONS:
+    for name in row:
+        if name == "🛍 Yandex Market":
+            IMAGE_PATHS[name] = str(BASE_IMAGE_PATH / "yandex_market.jpg")
+        else:
+            IMAGE_PATHS[name] = str(BASE_IMAGE_PATH / f"{photo_index}_photo.jpg")
+            photo_index += 1
 # Ссылки
 service_links = {
     "🍔 Uzum Tezkor": {"📥 Ilovaga kirish": "https://www.uzum.uz/"},
