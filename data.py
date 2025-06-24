@@ -116,9 +116,9 @@ for row in SERVICE_BUTTONS:
         if name == "🛍 Yandex Market":
             IMAGE_PATHS[name] = str(BASE_IMAGE_PATH / "yandex_market.jpg")
         else:
-            # гарантируем уникальность ключа
-            IMAGE_PATHS[f"{name}_{photo_index}"] = str(BASE_IMAGE_PATH / f"{photo_index}_photo.jpg")
+            IMAGE_PATHS[name] = str(BASE_IMAGE_PATH / f"{photo_index}_photo.jpg")
             photo_index += 1
+
 # Ссылки
 service_links = {
     "🍔 Uzum Tezkor": {"📥 Ilovaga kirish": "https://www.uzum.uz/"},
