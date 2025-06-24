@@ -115,6 +115,8 @@ for row in SERVICE_BUTTONS:
     for name in row:
         if name == "🛍 Yandex Market":
             IMAGE_PATHS[name] = str(BASE_IMAGE_PATH / "yandex_market.jpg")
+        elif name == "🥦 Yandex Магазин":
+            IMAGE_PATHS[name] = str(BASE_IMAGE_PATH / "2_photo.jpg")
         else:
             IMAGE_PATHS[name] = str(BASE_IMAGE_PATH / f"{photo_index}_photo.jpg")
         photo_index += 1  # ✅ Всегда увеличиваем!
