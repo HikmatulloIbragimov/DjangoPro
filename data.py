@@ -117,8 +117,7 @@ for row in SERVICE_BUTTONS:
             IMAGE_PATHS[name] = str(BASE_IMAGE_PATH / "yandex_market.jpg")
         else:
             IMAGE_PATHS[name] = str(BASE_IMAGE_PATH / f"{photo_index}_photo.jpg")
-            photo_index += 1
-
+        photo_index += 1  # ✅ Всегда увеличиваем!
 # Ссылки
 service_links = {
     "🍔 Uzum Tezkor": {"📥 Ilovaga kirish": "https://www.uzum.uz/"},
@@ -133,6 +132,6 @@ service_links = {
 # Информация (чат, помощь)
 details_messages = {
     "💬 Chat {Muhokama}": "💬 Chegirma va promokodlar muhokama qilinadi:\n\nhttps://t.me/+5RBCdNMPms5iNzBi",
-    "☎️ Yordam": "😊 Assalomu alaykum!\n\n📞 +998-94-970-00-57",
+    "☎️ Yordam": "😊 Assalomu alaykum! \n Ushbu nomerga bog`lanib yordamga ega bo`lishingiz mumkin!!!\n\n📞 +998-94-970-00-57",
     "📭 Umumiy ma'lumotlar": "📢 Telegram kanalimiz:\n\n🛒 https://t.me/promokod_zafar"
 }
