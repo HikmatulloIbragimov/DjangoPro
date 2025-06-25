@@ -60,15 +60,15 @@ PROMOCODES = {
         "desc": "Yetkazib berish uchun promokod"
     },
     "Yandex Lavka": {
-        "code": "ZAFAR",
-        "desc": "Lavka uchun chegirma kodi"
+        "code": "TOSHKENT51",
+        "desc": "Birinchi buyrtma uchun 50% chegirma , ushbu xavola orqali o`tishingiz mumkin \n\n 👇https://lavka.prfl.me/youtube/48x0e5"
     },
     "Yandex Магазин": {
         "code": "ZAFAR",
         "desc": "Yandex do'koni uchun promokod"
     },
     "Jet": {
-        "code": "JET",
+        "code": "7HMKOQ",
         "desc": "20 daqiqa bepul samakat uchasiz"
     },
     "Uzum Nasiya": {
@@ -76,8 +76,8 @@ PROMOCODES = {
         "desc": "1,400,000 soʻmdan yuqori Nasiyaga xarid uchun -90,000 soʻm chegirma"
     },
     "Wolt": {
-        "code": "ZAFAR",
-        "desc": "Wolt ilovasi uchun maxsus kod"
+        "code": "B3HF5N7",
+        "desc": "80 mingdan oshgan buyurtmalar uchun 15 ming soʻmdan 3 marta chegirma"
     },
     "Uklon": {
         "code": "ZAFAR",
