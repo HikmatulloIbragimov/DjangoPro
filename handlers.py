@@ -9,7 +9,7 @@ from data import (
 
 router = Router()
 
-# /start кнопки
+# Стартовое меню
 @router.message(CommandStart())
 async def start_handler(message: types.Message):
     keyboard = [[types.KeyboardButton(text=btn) for btn in row] for row in SERVICE_BUTTONS]
@@ -18,36 +18,45 @@ async def start_handler(message: types.Message):
         resize_keyboard=True
     ))
 
-# Детали (чат, ёрдам и т.п.)
+# Статические сообщения (Ёрдам, Маълумотлар и т.п.)
 @router.message(lambda msg: msg.text in details_messages)
 async def info_handler(message: types.Message):
     await message.answer(details_messages[message.text])
 
-# Основной обработчик кнопок
-@router.message(lambda msg: any(service in msg.text for service in sum(SERVICE_BUTTONS, [])))
+# Обработка всех сервисов
+@router.message(lambda msg: any(msg.text == btn for btn in sum(SERVICE_BUTTONS, [])))
 async def service_handler(message: types.Message):
     service = message.text.strip()
     emoji = service_emojis.get(service, "🎁")
 
-    # Промокод
-    clean_service = service.replace("🎁", "").replace("🍔", "").replace("🚀", "").strip()
+    # Убираем эмодзи для PROMOCODES
+    clean_service = service
+    for char in emoji:
+        clean_service = clean_service.replace(char, "")
+    clean_service = clean_service.strip()
+
     promo = PROMOCODES.get(clean_service)
 
     if promo:
         text = (
             f"<b>{emoji} {clean_service}</b>\n\n"
-            f"✅ {promo['code']} - {promo['desc']} \n\n"
+            f"✅ <b>{promo['code']}</b> - {promo['desc']}\n\n"
             f"@Promokodlar_24"
         )
     else:
-        text = "<b>ZAFAR</b> - Ushbu promokod orqali 50% gacha chegirma olishingiz mumkin \n\n@Promokodlar_24"
+        text = (
+            f"<b>{emoji} {clean_service}</b>\n\n"
+            f"✅ <b>ZAFAR</b> - Ushbu promokod orqali 50% gacha chegirma olishingiz mumkin\n\n"
+            f"@Promokodlar_24"
+        )
 
     # Кнопки ссылок
     links = service_links.get(service, {})
-    buttons = [[InlineKeyboardButton(text=k, url=v)] for k, v in links.items()]
-    markup = InlineKeyboardMarkup(inline_keyboard=buttons) if buttons else None
+    markup = InlineKeyboardMarkup(inline_keyboard=[
+        [InlineKeyboardButton(text=text, url=url)] for text, url in links.items()
+    ]) if links else None
 
-    # Картинка
+    # Картинка (если есть)
     image_path = IMAGE_PATHS.get(service)
     if image_path:
         await message.answer_photo(photo=FSInputFile(image_path), caption=text, reply_markup=markup)
