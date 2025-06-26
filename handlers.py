@@ -41,13 +41,13 @@ async def service_handler(message: types.Message):
         text = (
             f"<b>{emoji} {clean_service}</b>\n\n"
             f"✅ <b>{promo['code']}</b> - {promo['desc']}\n\n"
-            f"@Promokodlar_24"
+            f"@promokod_zafar"
         )
     else:
         text = (
             f"<b>{emoji} {clean_service}</b>\n\n"
             f"✅ <b>ZAFAR</b> - Ushbu promokod orqali 50% gacha chegirma olishingiz mumkin\n\n"
-            f"@Promokodlar_24"
+            f"@promokod_zafar"
         )
 
     # Кнопки ссылок
